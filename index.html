@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <script>
-        // Tailwind dark mode configuration
         tailwind.config = {
             darkMode: 'class',
         }
@@ -25,7 +24,6 @@
             background-color: #fcfaf2;
             background-image: url("https://www.transparenttextures.com/patterns/papyrus-dark.png");
         }
-        /* Dark mode overrides for paper background */
         .dark .bg-paper {
             background-color: #1a202c;
             background-image: none;
@@ -36,6 +34,14 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar for announcement list */
+        .notice-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .notice-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -49,9 +55,9 @@
                 <div class="space-x-8 hidden md:flex font-medium text-sm">
                     <a href="#hero" class="hover:text-blue-600 transition">홈</a>
                     <a href="#intro" class="hover:text-blue-600 transition">수업소개</a>
+                    <a href="#notice-section" class="hover:text-blue-600 transition">공지사항</a>
                     <a href="#contact" class="hover:text-blue-600 transition">안내</a>
                 </div>
-                <!-- Dark Mode Toggle Button -->
                 <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:ring-2 hover:ring-blue-400 transition-all">
                     <i id="theme-toggle-dark-icon" class="fas fa-moon hidden"></i>
                     <i id="theme-toggle-light-icon" class="fas fa-sun hidden"></i>
@@ -74,8 +80,8 @@
                 텍스트 너머의 진실을 마주하는 여정에 여러분을 초대합니다.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#intro" class="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-lg">수업 커리큘럼 보기</a>
-                <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition">공지사항 확인</a>
+                <a href="#notice-section" class="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-lg text-center">공지사항 작성하기</a>
+                <a href="#intro" class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition text-center">교과 과정 보기</a>
             </div>
         </div>
     </header>
@@ -104,6 +110,51 @@
         </div>
     </section>
 
+    <!-- Section: 공지사항 관리 (New) -->
+    <section id="notice-section" class="py-24 px-6 bg-slate-50 dark:bg-slate-950">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold serif mb-4">학급 공지사항</h3>
+                <p class="text-slate-600 dark:text-slate-400">선생님이 직접 작성하는 실시간 수업 공지입니다.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Write Notice Form -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 sticky top-24">
+                        <h4 class="font-bold mb-6 flex items-center gap-2">
+                            <i class="fas fa-edit text-blue-500"></i> 새 공지 작성
+                        </h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1 ml-1">제목</label>
+                                <input type="text" id="notice-title" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm" placeholder="공지 제목을 입력하세요">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1 ml-1">내용</label>
+                                <textarea id="notice-content" rows="4" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm resize-none" placeholder="내용을 입력하세요"></textarea>
+                            </div>
+                            <button onclick="addNotice()" class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition active:scale-95 shadow-lg shadow-blue-500/20">
+                                공지 등록하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notice List Display -->
+                <div class="lg:col-span-2">
+                    <div id="notice-list" class="space-y-4 notice-list max-h-[600px] overflow-y-auto pr-2">
+                        <!-- Notices will be injected here -->
+                        <div class="text-center py-20 text-slate-400 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+                            <i class="fas fa-bullhorn text-4xl mb-4 opacity-20"></i>
+                            <p>등록된 공지사항이 없습니다.<br>첫 번째 공지를 작성해 보세요!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact / Info Section -->
     <section id="contact" class="py-24 px-6 bg-paper dark:bg-slate-800">
         <div class="max-w-4xl mx-auto text-center">
@@ -112,12 +163,12 @@
             <div class="inline-flex flex-col sm:flex-row items-center gap-6 p-2 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur shadow-sm">
                 <div class="px-8 py-4">
                     <p class="text-xs text-slate-400 uppercase font-bold tracking-widest mb-1">E-Mail</p>
-                    <p class="font-mono text-slate-700 dark:text-slate-200">korean_teacher@school.ed.kr</p>
+                    <p class="font-mono text-slate-700 dark:text-slate-200 text-sm">korean_teacher@school.ed.kr</p>
                 </div>
                 <div class="w-px h-12 bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
                 <div class="px-8 py-4">
                     <p class="text-xs text-slate-400 uppercase font-bold tracking-widest mb-1">Office</p>
-                    <p class="text-slate-700 dark:text-slate-200">본관 3층 국어과 교무실</p>
+                    <p class="text-slate-700 dark:text-slate-200 text-sm">본관 3층 국어과 교무실</p>
                 </div>
             </div>
         </div>
@@ -125,7 +176,7 @@
 
     <!-- Test Link Section -->
     <section id="test-link" class="py-12 px-6 bg-white dark:bg-slate-900 text-center border-t border-slate-100 dark:border-slate-800">
-        <a href="./01/index.html" class="inline-flex items-center gap-2 px-10 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-95 shadow-sm">
+        <a href="./01/index.html" class="inline-flex items-center gap-2 px-10 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-95 shadow-sm text-sm">
             <i class="fas fa-vial"></i> test
         </a>
     </section>
@@ -136,12 +187,11 @@
     </footer>
 
     <script>
-        // Dark Mode Logic
+        // --- Dark Mode Logic ---
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
         const themeToggleBtn = document.getElementById('theme-toggle');
 
-        // Change the icons inside the button based on previous settings
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             themeToggleLightIcon.classList.remove('hidden');
             document.documentElement.classList.add('dark');
@@ -151,11 +201,9 @@
         }
 
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle icons inside button
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
 
-            // If set via local storage previously
             if (localStorage.getItem('color-theme')) {
                 if (localStorage.getItem('color-theme') === 'light') {
                     document.documentElement.classList.add('dark');
@@ -165,7 +213,6 @@
                     localStorage.setItem('color-theme', 'light');
                 }
             } else {
-                // If not set via local storage
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');
                     localStorage.setItem('color-theme', 'light');
@@ -176,13 +223,88 @@
             }
         });
 
-        // Simple Mobile Menu (Placeholder)
-        document.getElementById('menu-btn').addEventListener('click', () => {
+        // --- Announcement Management Logic ---
+        let notices = JSON.parse(localStorage.getItem('school-notices')) || [];
+
+        function renderNotices() {
+            const listContainer = document.getElementById('notice-list');
+            
+            if (notices.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-20 text-slate-400 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+                        <i class="fas fa-bullhorn text-4xl mb-4 opacity-20"></i>
+                        <p>등록된 공지사항이 없습니다.<br>첫 번째 공지를 작성해 보세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = notices.map((notice, index) => `
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow group fade-in">
+                    <div class="flex justify-between items-start mb-2">
+                        <h5 class="text-lg font-bold text-slate-800 dark:text-white">${notice.title}</h5>
+                        <button onclick="deleteNotice(${index})" class="text-slate-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 whitespace-pre-line mb-4">${notice.content}</p>
+                    <div class="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>${notice.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addNotice() {
+            const titleInput = document.getElementById('notice-title');
+            const contentInput = document.getElementById('notice-content');
+            
+            if (!titleInput.value.trim() || !contentInput.value.trim()) {
+                showToast("제목과 내용을 모두 입력해 주세요.");
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+
+            const newNotice = {
+                title: titleInput.value.trim(),
+                content: contentInput.value.trim(),
+                date: dateStr
+            };
+
+            notices.unshift(newNotice); // Add to beginning
+            localStorage.setItem('school-notices', JSON.stringify(notices));
+            
+            titleInput.value = '';
+            contentInput.value = '';
+            renderNotices();
+            showToast("공지가 성공적으로 등록되었습니다.");
+        }
+
+        function deleteNotice(index) {
+            if (confirm("이 공지사항을 삭제하시겠습니까?")) {
+                notices.splice(index, 1);
+                localStorage.setItem('school-notices', JSON.stringify(notices));
+                renderNotices();
+            }
+        }
+
+        function showToast(msg) {
             const toast = document.createElement('div');
-            toast.className = 'fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full z-[100] shadow-2xl text-sm font-bold fade-in';
-            toast.innerText = "모바일 메뉴는 준비 중입니다.";
+            toast.className = 'fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full z-[100] shadow-2xl text-xs font-bold fade-in';
+            toast.innerText = msg;
             document.body.appendChild(toast);
             setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 3000);
+        }
+
+        // Initial Render
+        window.onload = renderNotices;
+
+        // Mobile Menu Button Logic
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            showToast("모바일 메뉴는 준비 중입니다.");
         });
     </script>
 </body>
