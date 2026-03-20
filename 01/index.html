@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글로벌 국어 교육 설계도 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+        .tab-active { color: #2563eb; border-bottom: 4px solid #2563eb; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Modal Animation */
+        #image-modal.flex { animation: fadeIn 0.3s ease-out; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 p-4 md:p-8">
+
+    <!-- Top Navigation (Home Button) -->
+    <div class="max-w-6xl mx-auto mb-6 flex justify-start">
+        <a href="../index.html" class="inline-flex items-center px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm font-bold text-sm">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            Home
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto mb-10 text-center">
+        <div class="inline-flex items-center justify-center p-2 px-4 mb-4 bg-blue-100 text-blue-700 rounded-full text-sm font-bold tracking-tight">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+            글로벌 벤치마킹 리포트
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black mb-4 text-slate-800">
+            언어 교육의 <span class="text-blue-600">설계도</span>
+        </h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            6개국 마스터클래스 분석을 통해 찾는 대한민국 '이상적 국어 교육'의 미래 구조
+        </p>
+    </header>
+
+    <!-- Navigation Tabs & Infographic Button Grid -->
+    <nav class="max-w-6xl mx-auto mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto border-b border-slate-200" id="tab-nav">
+            <!-- Row 1 Left -->
+            <button onclick="switchTab('matrix')" id="btn-matrix" class="tab-btn px-6 py-4 font-bold transition-all tab-active text-center border-r border-slate-100">
+                글로벌 매트릭스
+            </button>
+            <!-- Row 1 Right (국가별 마스터클래스) -->
+            <button onclick="switchTab('explorer')" id="btn-explorer" class="tab-btn px-6 py-4 font-bold transition-all text-slate-400 hover:text-slate-600 text-center">
+                국가별 마스터클래스
+            </button>
+            <!-- Row 2 Left (3대 거시적 전환) -->
+            <button onclick="switchTab('insights')" id="btn-insights" class="tab-btn px-6 py-4 font-bold transition-all text-slate-400 hover:text-slate-600 text-center border-t border-slate-100 border-r border-slate-100">
+                3대 거시적 전환
+            </button>
+            <!-- Row 2 Right (인포그래픽 보기) -->
+            <button onclick="openModal()" class="px-6 py-4 font-bold text-blue-600 hover:bg-blue-50 transition-all text-center border-t border-slate-100 flex items-center justify-center group">
+                <svg class="w-4 h-4 mr-2 text-blue-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                인포그래픽 보기
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="max-w-6xl mx-auto" id="main-content">
+        <!-- Content will be injected here via JavaScript -->
+    </main>
+
+    <!-- Modal for Infographic -->
+    <div id="image-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onclick="closeModal()">
+        <div class="relative max-w-5xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl scale-95 transition-transform" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="p-1 bg-slate-200">
+                <img src="unnamed.jpg" alt="글로벌 국어 교육 인포그래픽" class="w-full h-auto max-h-[85vh] object-contain mx-auto">
+            </div>
+            <div class="p-4 bg-white text-center">
+                <p class="text-slate-500 text-sm font-bold">글로벌 국어 교육: 미래를 향한 각국의 설계도 인포그래픽</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="max-w-6xl mx-auto mt-20 pt-10 border-t border-slate-200 text-center pb-10">
+        <p class="text-slate-400 text-sm font-medium tracking-tight">
+            글로벌 국어 교육과정 분석 및 미래 설계 연구 자료실
+        </p>
+    </footer>
+
+    <script>
+        // Data
+        const countryData = {
+            korea: {
+                name: "대한민국",
+                philosophy: "높은 수준의 국어 능력 함양",
+                structure: "6대 영역 병렬 (듣기·말하기, 읽기, 쓰기, 문법, 문학, 매체)",
+                media: "독립 영역(매체) 신설",
+                evaluation: "성취기준 도달 중심",
+                symbol: "6개의 독립 위성",
+                description: "2022 개정 교육과정에서 '매체'를 독립 영역으로 분리하여 디지털 소양을 강화했으나, 여전히 각 기능이 병렬적으로 존재합니다.",
+                color: "blue"
+            },
+            china: {
+                name: "중국",
+                philosophy: "입덕수인(立德树人) - 도덕적 인재",
+                structure: "학습 임무군(Task-based) 피라미드",
+                media: "내용 통합형 접근",
+                evaluation: "통합적 임무 수행 평가",
+                symbol: "임무형 피라미드",
+                description: "분절적 기능(듣·말·읽·쓰)을 폐지하고 실제 상황 중심의 '학습 임무군'으로 전면 개편했습니다. 기초-발전-확장형의 견고한 구조를 가집니다.",
+                color: "red"
+            },
+            japan: {
+                name: "일본",
+                philosophy: "삶의 힘(生きる力)",
+                structure: "현대-전통의 완벽한 균형",
+                media: "교과 내 융합 활용",
+                evaluation: "주체적·과정 중심",
+                symbol: "현대와 전통의 균형추",
+                description: "단순 지식 주입을 탈피하여, 현대의 논리적 사고력과 전통 문화의 계승 사이의 균형을 최우선으로 설계되었습니다.",
+                color: "orange"
+            },
+            australia: {
+                name: "호주",
+                philosophy: "3차원 입체 구조",
+                structure: "역량-교과 직접 연계 (아이콘 매핑)",
+                media: "일반 역량(ICT)으로 통합",
+                evaluation: "학습연속체 기반 수행 기준",
+                symbol: "3D 입체 매트릭스",
+                description: "범교과 공통 역량이 교과 내용에 '아이콘' 형태로 직접 매핑되어 있어, 별도의 교과 신설 없이도 역량 교육이 가능합니다.",
+                color: "green"
+            },
+            germany: {
+                name: "독일",
+                philosophy: "개인의 고유성과 민주시민",
+                structure: "5대 역량 상호연결",
+                media: "디지털 시대의 텍스트 확장",
+                evaluation: "아비투어 (객관식 0%, 주관식/구술)",
+                symbol: "역방향 평가 퍼널",
+                description: "객관식 시험이 전혀 없습니다. 수업 시간의 자발적 참여와 토론이 최대 70%를 차지하며 '자기 고유의 언어'를 중시합니다.",
+                color: "purple"
+            },
+            canada: {
+                name: "캐나다(온타리오)",
+                philosophy: "포괄적 시민성과 전이 기술",
+                structure: "상위 통합 렌즈(Strand A)",
+                media: "디지털 리터러시를 메타 생태계로 설정",
+                evaluation: "교사 자율 구성 및 서술형",
+                symbol: "통합 렌즈 생태계",
+                description: "디지털 리터러시를 모든 영역을 감싸는 최상위 'A영역'으로 설정하여, 도구가 아닌 삶의 환경으로 정의합니다.",
+                color: "cyan"
+            },
+            uk: {
+                name: "영국",
+                philosophy: "표준 영어 구사 및 문해력",
+                structure: "구어(Spoken) 기반 필라 구조",
+                media: "디지털 리터러시 통합 진행",
+                evaluation: "계층적 성취 기준",
+                symbol: "신전 기둥 구조",
+                description: "구어 능력을 모든 문해력의 토대로 규정하며, 파닉스와 디코딩 등 철저한 기본기 위에 읽기와 쓰기 기둥을 세웁니다.",
+                color: "indigo"
+            }
+        };
+
+        const insights = [
+            {
+                title: "디지털의 전면적 통합",
+                subtitle: "Total Digital Integration",
+                desc: "매체를 1/n 영역으로 가르치는 것이 아니라, 모든 학습이 일어나는 '맥락'이자 '생태계'로 전환 (캐나다, 영국 사례)",
+                icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>`
+            },
+            {
+                title: "역량과 교과의 UI 매핑",
+                subtitle: "Competency-Subject UI Mapping",
+                desc: "역량을 추상적 목표로 두지 않고, 교과 내용 내에 아이콘 등으로 직접 연결하여 실천 가능성 극대화 (호주, 중국 사례)",
+                icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>`
+            },
+            {
+                title: "과정 중심의 주관적 평가",
+                subtitle: "Process-Centric Evaluation",
+                desc: "정답을 찾는 객관식 평가에서 벗어나, 학생의 고유한 목소리와 비판적 사유 과정을 측정 (독일, 일본 사례)",
+                icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>`
+            }
+        ];
+
+        // State
+        let currentTab = 'matrix';
+        let currentCountry = 'korea';
+
+        // Initialize
+        window.onload = () => {
+            renderContent();
+        };
+
+        // Modal Logic
+        function openModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-slate-400');
+            });
+            document.getElementById(`btn-${tabId}`).classList.add('tab-active');
+            document.getElementById(`btn-${tabId}`).classList.remove('text-slate-400');
+            renderContent();
+        }
+
+        function setCountry(key) {
+            currentCountry = key;
+            renderExplorer();
+        }
+
+        function renderContent() {
+            const container = document.getElementById('main-content');
+            container.innerHTML = '';
+            
+            if (currentTab === 'matrix') {
+                renderMatrix();
+            } else if (currentTab === 'explorer') {
+                renderExplorer();
+            } else if (currentTab === 'insights') {
+                renderInsights();
+            }
+        }
+
+        function renderMatrix() {
+            const container = document.getElementById('main-content');
+            let rows = '';
+            Object.entries(countryData).forEach(([key, data]) => {
+                rows += `
+                    <tr class="border-b border-slate-100 hover:bg-blue-50 cursor-pointer transition-colors" onclick="currentCountry='${key}'; switchTab('explorer');">
+                        <td class="p-4 px-6 font-bold text-blue-600 underline decoration-blue-200 decoration-2 underline-offset-4">${data.name}</td>
+                        <td class="p-4 px-6 text-sm text-slate-600">${data.philosophy}</td>
+                        <td class="p-4 px-6 text-sm text-slate-600">${data.structure}</td>
+                        <td class="p-4 px-6 text-sm font-medium text-slate-800">${data.media}</td>
+                        <td class="p-4 px-6 text-sm italic text-slate-500">${data.evaluation}</td>
+                    </tr>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="animate-fade-in">
+                    <div class="overflow-x-auto bg-white rounded-2xl shadow-xl border border-slate-200">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-800 text-white">
+                                    <th class="p-4 px-6 font-bold">국가</th>
+                                    <th class="p-4 px-6 font-bold">핵심 철학</th>
+                                    <th class="p-4 px-6 font-bold">구조적 패러다임</th>
+                                    <th class="p-4 px-6 font-bold">매체/디지털</th>
+                                    <th class="p-4 px-6 font-bold">평가 초점</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 flex items-center justify-center text-slate-400 text-sm">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        국가명을 클릭하면 상세 마스터클래스 설계를 볼 수 있습니다.
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderExplorer() {
+            const container = document.getElementById('main-content');
+            const data = countryData[currentCountry];
+            
+            let countryButtons = '';
+            Object.entries(countryData).forEach(([key, c]) => {
+                const isActive = currentCountry === key;
+                countryButtons += `
+                    <button onclick="setCountry('${key}')" 
+                        class="w-full flex items-center p-4 rounded-xl transition-all border-2 ${isActive ? 'bg-white border-blue-500 shadow-md translate-x-2' : 'bg-transparent border-transparent hover:bg-slate-200'}">
+                        <div class="w-3 h-3 rounded-full mr-4 bg-${c.color}-500" style="background-color: ${getColorHex(c.color)}"></div>
+                        <span class="font-bold ${isActive ? 'text-blue-700' : 'text-slate-600'}">${c.name}</span>
+                        ${isActive ? '<svg class="ml-auto w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>' : ''}
+                    </button>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 animate-fade-in">
+                    <div class="md:col-span-4 space-y-2">
+                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">국가 선택</h3>
+                        ${countryButtons}
+                    </div>
+                    <div class="md:col-span-8 bg-white rounded-3xl p-8 shadow-2xl border border-slate-200 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full -mr-20 -mt-20 opacity-30 blur-3xl" style="background-color: ${getColorHex(data.color)}33"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center mb-6">
+                                <h2 class="text-3xl font-black text-slate-800">${data.name} 마스터클래스</h2>
+                                <span class="ml-4 px-3 py-1 rounded-lg text-xs font-bold uppercase" style="background-color: ${getColorHex(data.color)}22; color: ${getColorHex(data.color)}">
+                                    ${data.symbol}
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                                ${createDetailItem("핵심 철학", data.philosophy, "M12 21a9 9 0 100-18 9 9 0 000 18z M12 8v4l3 3")}
+                                ${createDetailItem("구조적 패러다임", data.structure, "M4 6h16M4 12h16M4 18h7")}
+                                ${createDetailItem("디지털/매체 위상", data.media, "M9 3v2m6-2v2M9 19v2m6-2v2")}
+                                ${createDetailItem("평가의 지향점", data.evaluation, "M5 3v4M3 5h4")}
+                            </div>
+                            <div class="p-6 bg-blue-50 rounded-3xl border-2 border-blue-100">
+                                <h4 class="text-blue-800 font-black mb-3 flex items-center uppercase text-sm tracking-tighter">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    교육 설계 Insight
+                                </h4>
+                                <p class="text-slate-700 leading-relaxed italic">"${data.description}"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createDetailItem(title, content, svgPath) {
+            return `
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <h4 class="text-xs font-bold text-slate-400 mb-2 flex items-center italic">
+                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${svgPath}"></path></svg>
+                        ${title}
+                    </h4>
+                    <p class="font-bold text-slate-700">${content}</p>
+                </div>
+            `;
+        }
+
+        function renderInsights() {
+            const container = document.getElementById('main-content');
+            let insightCards = '';
+            insights.forEach(ins => {
+                insightCards += `
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-200 hover:shadow-2xl transition-all hover:-translate-y-2 group">
+                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            ${ins.icon}
+                        </div>
+                        <h3 class="text-xl font-black text-slate-800 mb-1">${ins.title}</h3>
+                        <p class="text-xs font-bold text-blue-500 mb-4 uppercase tracking-wider">${ins.subtitle}</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">${ins.desc}</p>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="space-y-12 animate-fade-in">
+                    <div class="text-center mb-8 flex flex-col items-center">
+                        <h2 class="text-3xl font-black text-slate-800 mb-2 italic underline decoration-blue-500 decoration-4 underline-offset-8">
+                            글로벌 국어 교육을 관통하는 3대 거시적 전환
+                        </h2>
+                        <p class="text-slate-500 mt-6 max-w-2xl">지식의 파편화를 거부하고 삶의 맥락으로 나아가는 글로벌 표준</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">${insightCards}</div>
+                    <div class="bg-slate-900 text-white rounded-[3rem] p-10 md:p-16 relative overflow-hidden shadow-inner">
+                        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] -mr-40 -mt-40"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-black mb-10 flex items-center italic">
+                                <svg class="w-8 h-8 mr-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                이상적 자국어 교육의 마스터플랜
+                            </h3>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                                <div class="space-y-8">
+                                    ${createBlueprintStep(1, "지붕(목표): 민주시민으로서의 삶의 힘", "단순 지식 습득이 아닌 타인과의 소통 및 사회 참여를 위한 실질적 능력 배양")}
+                                    ${createBlueprintStep(2, "기둥(과정): 임무 기반 통합 언어 활동", "듣·말·읽·쓰 기능을 해체하고 실제적 맥락 속에서 과업을 수행하는 통합 훈련")}
+                                    ${createBlueprintStep(3, "대지(환경): 디지털 리터러시 생태계", "디지털을 하위 영역이 아닌 모든 학습을 작동시키는 전이 가능한 기반 환경으로 재정의")}
+                                    ${createBlueprintStep(4, "뿌리(기반): 전통 문화와 고유한 개인성", "자국어의 정체성을 보존하며 아비투어와 같은 철저한 주관적 사유 과정을 측정")}
+                                </div>
+                                <div class="flex flex-col items-center justify-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm">
+                                    <div class="w-48 h-48 mb-8 relative">
+                                        <div class="absolute inset-0 border-4 border-dashed border-blue-400/30 rounded-full animate-pulse"></div>
+                                        <div class="absolute inset-4 border-2 border-blue-400/50 rounded-full"></div>
+                                        <div class="absolute inset-0 flex items-center justify-center text-blue-400">
+                                            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                                        </div>
+                                    </div>
+                                    <p class="text-center text-slate-300 italic text-sm">
+                                        "가장 정교하게 설계된 교육과정만이<br/>
+                                        <span class="text-white font-black">가장 창의적인 미래시민</span>을 건축할 수 있습니다."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createBlueprintStep(num, title, desc) {
+            return `
+                <div class="flex items-start">
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex-shrink-0 flex items-center justify-center font-black text-white mr-6 mt-1 shadow-lg shadow-blue-500/50">${num}</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-white">${title}</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">${desc}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getColorHex(color) {
+            const colors = { blue: '#2563eb', red: '#dc2626', orange: '#f97316', green: '#16a34a', purple: '#9333ea', cyan: '#0891b2', indigo: '#4f46e5' };
+            return colors[color] || '#334155';
+        }
+    </script>
+</body>
+</html>
