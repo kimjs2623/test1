@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024학년도 국어 수업 - 문학의 숲을 거닐다</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        // Tailwind dark mode configuration
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .serif {
+            font-family: 'Noto Serif KR', serif;
+        }
+        .bg-paper {
+            background-color: #fcfaf2;
+            background-image: url("https://www.transparenttextures.com/patterns/papyrus-dark.png");
+        }
+        /* Dark mode overrides for paper background */
+        .dark .bg-paper {
+            background-color: #1a202c;
+            background-image: none;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm z-50 transition-colors">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-900 dark:text-blue-400 serif">국어의 숲</h1>
+            <div class="flex items-center gap-6">
+                <div class="space-x-8 hidden md:flex font-medium text-sm">
+                    <a href="#hero" class="hover:text-blue-600 transition">홈</a>
+                    <a href="#intro" class="hover:text-blue-600 transition">수업소개</a>
+                    <a href="#contact" class="hover:text-blue-600 transition">안내</a>
+                </div>
+                <!-- Dark Mode Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:ring-2 hover:ring-blue-400 transition-all">
+                    <i id="theme-toggle-dark-icon" class="fas fa-moon hidden"></i>
+                    <i id="theme-toggle-light-icon" class="fas fa-sun hidden"></i>
+                </button>
+                <button class="md:hidden text-2xl" id="menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="pt-40 pb-32 px-6 bg-gradient-to-b from-blue-50 to-slate-50 dark:from-slate-800 dark:to-slate-900">
+        <div class="max-w-4xl mx-auto text-center fade-in">
+            <span class="inline-block px-4 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 text-sm font-semibold mb-6">2024학년도 1학기 국어</span>
+            <h2 class="text-4xl md:text-6xl font-bold mb-8 serif leading-tight text-slate-900 dark:text-white">
+                문학의 과거를 읽고,<br>
+                <span class="text-blue-700 dark:text-blue-400">새로운 시대를 쓰다.</span>
+            </h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                천년의 세월을 이어온 '국문학사'와 변화의 시대를 담은 '현대문학개론'.<br>
+                텍스트 너머의 진실을 마주하는 여정에 여러분을 초대합니다.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#intro" class="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-lg">수업 커리큘럼 보기</a>
+                <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition">공지사항 확인</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: 수업 요약 -->
+    <section id="intro" class="py-24 px-6 bg-white dark:bg-slate-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-300 mb-6">
+                        <i class="fas fa-scroll text-xl"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-4 serif">국문학사</h4>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6">고대 가요부터 조선 후기까지, 우리 민족의 숨결이 담긴 고전 문학의 흐름을 탐구합니다.</p>
+                    <a href="#" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">강의실 입장하기 <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-300 mb-6">
+                        <i class="fas fa-pen-nib text-xl"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-4 serif">현대문학개론</h4>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6">개화기부터 현대까지, 시대를 비추는 거울인 현대 소설과 시의 세계를 분석합니다.</p>
+                    <a href="#" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">강의실 입장하기 <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Info Section -->
+    <section id="contact" class="py-24 px-6 bg-paper dark:bg-slate-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-bold serif mb-8">안내 및 문의</h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-12">수업 관련 질문이나 기술적인 지원이 필요한 경우 아래 연락처를 이용해 주세요.</p>
+            <div class="inline-flex flex-col sm:flex-row items-center gap-6 p-2 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur shadow-sm">
+                <div class="px-8 py-4">
+                    <p class="text-xs text-slate-400 uppercase font-bold tracking-widest mb-1">E-Mail</p>
+                    <p class="font-mono text-slate-700 dark:text-slate-200">korean_teacher@school.ed.kr</p>
+                </div>
+                <div class="w-px h-12 bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
+                <div class="px-8 py-4">
+                    <p class="text-xs text-slate-400 uppercase font-bold tracking-widest mb-1">Office</p>
+                    <p class="text-slate-700 dark:text-slate-200">본관 3층 국어과 교무실</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Link Section -->
+    <section id="test-link" class="py-12 px-6 bg-white dark:bg-slate-900 text-center border-t border-slate-100 dark:border-slate-800">
+        <a href="./01/index.html" class="inline-flex items-center gap-2 px-10 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-95 shadow-sm">
+            <i class="fas fa-vial"></i> test
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center text-slate-500 text-sm border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <p>&copy; 2024 국어과 수업 랜딩페이지. 모든 수업 자료는 교육적 목적으로만 사용됩니다.</p>
+    </footer>
+
+    <script>
+        // Dark Mode Logic
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        // Change the icons inside the button based on previous settings
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+            document.documentElement.classList.add('dark');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle icons inside button
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // If set via local storage previously
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                // If not set via local storage
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+
+        // Simple Mobile Menu (Placeholder)
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full z-[100] shadow-2xl text-sm font-bold fade-in';
+            toast.innerText = "모바일 메뉴는 준비 중입니다.";
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 3000);
+        });
+    </script>
+</body>
+</html>
